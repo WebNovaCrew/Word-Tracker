@@ -1,7 +1,0 @@
-{
-  "name": "word-tracker-project",
-  "version": "1.0.0",
-  "scripts": {
-    "build": "cd frontend && npm install && npm run build && cp -r dist/word-tracker/* ../backend-php/ && rm -rf dist node_modules"
-  }
-}
