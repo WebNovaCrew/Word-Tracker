@@ -79,7 +79,7 @@ export class CreateChecklistComponent implements OnInit {
 
         console.log('Saving checklist:', payload);
 
-        this.http.post(`${environment.apiUrl}/api/create_checklist.php`, payload)
+        this.http.post(`${environment.apiUrl}/create_checklist.php`, payload)
             .subscribe({
                 next: (res: any) => {
                     if (res.success) {

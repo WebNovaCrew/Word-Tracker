@@ -171,7 +171,7 @@ export class PlanListComponent implements OnInit {
         const newColor = event.target.value;
         plan.color_code = newColor; // Optimistic update
 
-        this.http.post(`${environment.apiUrl}/api/update_plan_color.php`, {
+        this.http.post(`${environment.apiUrl}/update_plan_color.php`, {
             id: plan.id,
             color: newColor
         }).subscribe({

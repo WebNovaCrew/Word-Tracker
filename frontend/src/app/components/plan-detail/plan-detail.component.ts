@@ -29,7 +29,7 @@ export class PlanDetailComponent implements OnInit {
 
   loadPlan(id: string) {
     this.loading = true;
-    this.http.get<any>(`${environment.apiUrl}/api/get_plan_full_details.php?id=` + id)
+    this.http.get<any>(`${environment.apiUrl}/get_plan_full_details.php?id=` + id)
       .subscribe({
         next: (data) => {
           this.plan = data;
@@ -48,7 +48,7 @@ export class PlanDetailComponent implements OnInit {
     const val = parseInt(newValue, 10);
     if (isNaN(val)) return;
 
-    this.http.post(`${environment.apiUrl}/api/add_progress.php`, {
+    this.http.post(`${environment.apiUrl}/add_progress.php`, {
       plan_id: this.plan.id,
       date: day.date,
       count: val

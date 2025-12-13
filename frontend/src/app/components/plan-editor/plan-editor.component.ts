@@ -77,7 +77,7 @@ export class PlanEditorComponent implements OnInit {
     }
 
     loadPlan(id: number) {
-        this.http.get<any>(`${environment.apiUrl}/api/get_plan.php?id=${id}`)
+        this.http.get<any>(`${environment.apiUrl}/get_plan.php?id=${id}`)
             .subscribe({
                 next: (plan) => {
                     if (plan) {
@@ -139,7 +139,7 @@ export class PlanEditorComponent implements OnInit {
         if (this.planData.id) {
             // Update
             payload.id = this.planData.id;
-            this.http.post(`${environment.apiUrl}/api/update_plan.php`, payload)
+            this.http.post(`${environment.apiUrl}/update_plan.php`, payload)
                 .subscribe({
                     next: (res: any) => {
                         alert(res.message || 'Plan updated successfully!');
@@ -152,7 +152,7 @@ export class PlanEditorComponent implements OnInit {
                 });
         } else {
             // Create
-            this.http.post(`${environment.apiUrl}/api/create_plan.php`, payload)
+            this.http.post(`${environment.apiUrl}/create_plan.php`, payload)
                 .subscribe({
                     next: (res: any) => {
                         if (res.success) {

@@ -30,7 +30,7 @@ export class PlanEditorProgressComponent implements OnChanges {
     loadProgress() {
         if (!this.planId) return;
         this.loading = true;
-        this.http.get(`${environment.apiUrl}/api/get_stats.php?plan_id=${this.planId}`)
+        this.http.get(`${environment.apiUrl}/get_stats.php?plan_id=${this.planId}`)
             .subscribe({
                 next: (res: any) => {
                     if (res.success) {
@@ -49,7 +49,7 @@ export class PlanEditorProgressComponent implements OnChanges {
     updateProgress(day: any) {
         if (!this.planId) return;
 
-        this.http.post(`${environment.apiUrl}/api/add_progress.php`, {
+        this.http.post(`${environment.apiUrl}/add_progress.php`, {
             plan_id: this.planId,
             date: day.date,
             count: day.logged

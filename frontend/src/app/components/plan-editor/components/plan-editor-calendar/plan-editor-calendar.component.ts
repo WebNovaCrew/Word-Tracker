@@ -62,7 +62,7 @@ export class PlanEditorCalendarComponent implements OnChanges {
             weekend_rule: this.planData.weekendRule
         };
 
-        this.http.post(`${environment.apiUrl}/api/preview_plan.php`, payload)
+        this.http.post(`${environment.apiUrl}/preview_plan.php`, payload)
             .subscribe({
                 next: (res: any) => {
                     if (res.success) {

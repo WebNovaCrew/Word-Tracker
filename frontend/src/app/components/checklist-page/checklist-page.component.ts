@@ -65,7 +65,7 @@ export class ChecklistPageComponent implements OnInit {
     }
 
     fetchPlanDetails() {
-        this.http.get<any>(`${environment.apiUrl}/api/get_plans.php?user_id=${localStorage.getItem('user_id')}`)
+        this.http.get<any>(`${environment.apiUrl}/get_plans.php?user_id=${localStorage.getItem('user_id')}`)
             .subscribe(res => {
                 if (res && res.length) {
                     this.plan = res.find((p: any) => p.id == this.planId) || {};
@@ -74,7 +74,7 @@ export class ChecklistPageComponent implements OnInit {
     }
 
     fetchTasks() {
-        this.http.get<any>(`${environment.apiUrl}/api/get_tasks.php?plan_id=${this.planId}`)
+        this.http.get<any>(`${environment.apiUrl}/get_tasks.php?plan_id=${this.planId}`)
             .subscribe(res => {
                 this.tasks = res.records || [];
                 this.sortTasks();
@@ -96,7 +96,7 @@ export class ChecklistPageComponent implements OnInit {
             is_completed: false
         };
 
-        this.http.post<any>(`${environment.apiUrl}/api/save_task.php`, newTask)
+        this.http.post<any>(`${environment.apiUrl}/save_task.php`, newTask)
             .subscribe(res => {
                 newTask.id = res.id;
                 this.tasks.push(newTask);
@@ -107,14 +107,14 @@ export class ChecklistPageComponent implements OnInit {
     deleteTask(task: Task) {
         if (!confirm('Are you sure you want to delete this task?')) return;
 
-        this.http.post(`${environment.apiUrl}/api/delete_task.php`, { id: task.id })
+        this.http.post(`${environment.apiUrl}/delete_task.php`, { id: task.id })
             .subscribe(() => {
                 this.tasks = this.tasks.filter(t => t.id !== task.id);
             });
     }
 
     updateTask(task: Task) {
-        this.http.post(`${environment.apiUrl}/api/save_task.php`, task)
+        this.http.post(`${environment.apiUrl}/save_task.php`, task)
             .subscribe();
     }
 

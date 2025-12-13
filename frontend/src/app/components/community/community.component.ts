@@ -31,7 +31,7 @@ export class CommunityComponent implements OnInit {
   }
 
   fetchCommunityPlans() {
-    const url = `${environment.apiUrl}/api/get_community_plans.php`;
+    const url = `${environment.apiUrl}/get_community_plans.php`;
 
     this.http.get<any>(url).subscribe({
       next: (response) => {

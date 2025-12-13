@@ -160,7 +160,7 @@ import { environment } from '../../../environments/environment';
     `]
 })
 export class ApiTesterComponent {
-    apiUrl = `${environment.apiUrl}/api/create_plan.php`;
+    apiUrl = `${environment.apiUrl}/create_plan.php`;
 
     testData = {
         user_id: 1,

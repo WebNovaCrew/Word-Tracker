@@ -53,10 +53,10 @@ export class StatsComponent implements OnInit, OnChanges {
 
     let url = '';
     if (this.planId) {
-      url = `${environment.apiUrl}/api/get_stats.php?plan_id=${this.planId}`;
+      url = `${environment.apiUrl}/get_stats.php?plan_id=${this.planId}`;
     } else {
       const userId = localStorage.getItem('user_id') || '1';
-      url = `${environment.apiUrl}/api/get_global_stats.php?user_id=${userId}`;
+      url = `${environment.apiUrl}/get_global_stats.php?user_id=${userId}`;
     }
 
     this.http.get(url)

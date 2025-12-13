@@ -181,7 +181,7 @@ export class CreatePlanComponent implements OnInit {
 
     console.log('Sending plan data:', payload);
 
-    this.http.post(`${environment.apiUrl}/api/create_plan.php`, payload)
+    this.http.post(`${environment.apiUrl}/create_plan.php`, payload)
       .subscribe({
         next: (response) => {
           console.log('Plan created successfully:', response);
