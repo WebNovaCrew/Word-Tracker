@@ -1,7 +1,11 @@
 frontend/
-backend-php/
-docs/
-*.log
-.env
-.DS_Store
 node_modules/
+.git/
+*.md
+server.js
+package.json
+package-lock.json
+fix-frontend-urls.ps1
+start_dev.ps1
+database/
+word-tracker-main/
