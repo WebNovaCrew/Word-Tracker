@@ -4,10 +4,10 @@ RewriteEngine On
 RewriteCond %{REQUEST_METHOD} OPTIONS
 RewriteRule ^(.*)$ index.php [L]
 
-# If the file exists physically, serve it
+# If the file or directory exists, serve it directly
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# Redirect everything else to index.php
+# Redirect all other requests to index.php
 RewriteRule ^(.*)$ index.php [QSA,L]

@@ -1,92 +1,53 @@
 <?php
-// Root Router for Word Tracker
-// Redirects requests like /login.php to backend-php/api/login.php
+// backend-php/index.php
 
-// ---------------------------------------------------------------------------
-// 1. CORS & Preflight Handling (Unified)
-// ---------------------------------------------------------------------------
-// Allow from any origin (or specific Angular port) dynamically
-if (isset($_SERVER['HTTP_ORIGIN'])) {
-    header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
-    header("Access-Control-Allow-Credentials: true");
-    header("Access-Control-Max-Age: 86400"); // Cache for 1 day
-} else {
-    // Fallback for non-browser checks
-    header("Access-Control-Allow-Origin: *");
-}
+// 1. Init Configuration
+require_once 'config/cors.php';
+require_once 'config/database.php';
 
-// Access-Control headers are needed for both Preflight and Actual requests
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+// Handle Preflight and CORS headers
+handleCors();
 
-// Handle Preflight Options Request immediately
-if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-    http_response_code(200);
-    exit(0);
-}
+// 2. Parse URL to determine API Endpoint
+// Request URI comes in like /api/login or /word-tracker/backend-php/api/login depending on host
+$request_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$pathParts = explode('/', trim($request_uri, '/'));
 
-// ---------------------------------------------------------------------------
-// 2. Routing Logic
-// ---------------------------------------------------------------------------
+// Universal Router
+// Routes requests from /word-tracker/endpoint.php to /backend-php/api/endpoint.php
+// OR /endpoint.php to api/endpoint.php if served from root
 
-// Get the requested file name
-$request_uri = $_SERVER['REQUEST_URI'];
 $path = parse_url($request_uri, PHP_URL_PATH);
-$filename = basename($path);
+$filename = basename($path); // e.g. login.php or login
 
-// Security: Prevent directory traversal
-if (strpos($filename, '..') !== false) {
-    http_response_code(400);
-    echo json_encode(["message" => "Invalid path"]);
-    exit();
-}
-
-// If no filename (root), return welcome
-if (empty($filename) || $filename == 'word-tracker') {
-    echo json_encode([
-        "message" => "Word Tracker API Root",
-        "status" => "Running",
-        "documentation" => "Access endpoints like /login or /register"
-    ]);
-    exit();
-}
-
-// Add .php extension if missing
+// If no extension, assume .php
 if (strpos($filename, '.') === false) {
     $filename .= '.php';
 }
 
-// Define paths to search for the script
-$searchPaths = [
-    __DIR__ . '/backend-php/api/' . $filename,  // Priority 1: API folder
-    __DIR__ . '/backend-php/' . $filename       // Priority 2: Backend Root
-];
+// Security: Prevent directory traversal
+$filename = basename($filename);
 
-$foundPath = null;
-foreach ($searchPaths as $p) {
-    if (file_exists($p)) {
-        $foundPath = $p;
-        break;
-    }
-}
+$apiFile = __DIR__ . '/api/' . $filename;
 
-if ($foundPath) {
-    // 3. Execution
-    // Fix relative includes: scripts often rely on relative paths (e.g. ../config).
-    // changing directory to the script's directory ensures consistency.
-    chdir(dirname($foundPath));
-
-    // Safely require the file
-    // Note: Since headers are already sent above, scripts should checkheaders_sent() 
-    // or use logic that doesn't conflict. 
-    // We updated config/cors.php to respect existing headers.
-    require $foundPath;
+if (file_exists($apiFile)) {
+    require $apiFile;
 } else {
+    // Check if it's a known mapping
     http_response_code(404);
     echo json_encode([
-        "success" => false,
         "message" => "Endpoint not found: " . $filename,
-        "searched_locations" => $searchPaths
+        "debug_path" => $apiFile
     ]);
 }
+
+// 3. Fallback / 404
+// Since we are a Backend-Only API now, we do NOT serve frontend files or HTML.
+http_response_code(404);
+header('Content-Type: application/json');
+echo json_encode([
+    "message" => "API Endpoint not found",
+    "status" => "error",
+    "path" => $request_uri
+]);
 ?>
