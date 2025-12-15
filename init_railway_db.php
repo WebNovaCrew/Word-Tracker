@@ -31,11 +31,31 @@ foreach ($possiblePaths as $path) {
 }
 
 // 3. Get Credentials
-$host = getenv('MYSQLHOST') ?: 'localhost';
-$user = getenv('MYSQLUSER') ?: 'root';
-$pass = getenv('MYSQLPASSWORD') ?: '';
-$db = getenv('MYSQLDATABASE') ?: 'word_tracker';
-$port = getenv('MYSQLPORT') ?: 3306;
+$host = getenv('MYSQLHOST');
+$user = getenv('MYSQLUSER');
+$pass = getenv('MYSQLPASSWORD');
+$db = getenv('MYSQLDATABASE');
+$port = getenv('MYSQLPORT');
+
+if (!$host) {
+    $url = getenv('MYSQL_URL') ?: (getenv('MYSQL_PRIVATE_URL') ?: (getenv('MYSQL_PUBLIC_URL') ?: getenv('DATABASE_URL')));
+    if ($url) {
+        $parts = parse_url($url);
+        if ($parts !== false && isset($parts['host'])) {
+            $host = $parts['host'];
+            $port = isset($parts['port']) ? (string) $parts['port'] : null;
+            $user = isset($parts['user']) ? urldecode($parts['user']) : null;
+            $pass = isset($parts['pass']) ? urldecode($parts['pass']) : null;
+            $db = isset($parts['path']) ? ltrim($parts['path'], '/') : null;
+        }
+    }
+}
+
+$host = $host ?: '127.0.0.1';
+$user = $user ?: 'root';
+$pass = $pass ?: '';
+$db = $db ?: 'word_tracker';
+$port = $port ?: 3306;
 
 $response = [
     'status' => 'unknown',

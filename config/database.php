@@ -13,22 +13,37 @@ class Database
 
     public function __construct()
     {
-        // Check if running on Railway (environment variable exists)
         if (getenv('MYSQLHOST')) {
-            // Railway MySQL configuration
             $this->host = getenv('MYSQLHOST');
             $this->db_name = getenv('MYSQLDATABASE');
             $this->username = getenv('MYSQLUSER');
             $this->password = getenv('MYSQLPASSWORD');
             $this->port = getenv('MYSQLPORT') ?: '3306';
-        } else {
-            // XAMPP Defaults for local development
-            $this->host = "127.0.0.1";
-            $this->db_name = "word_tracker";
-            $this->username = "root";
-            $this->password = "";
-            $this->port = "3306";
+            return;
         }
+
+        $url = getenv('MYSQL_URL') ?: (getenv('MYSQL_PRIVATE_URL') ?: (getenv('MYSQL_PUBLIC_URL') ?: getenv('DATABASE_URL')));
+        if ($url) {
+            $parts = parse_url($url);
+            if ($parts !== false && isset($parts['host'])) {
+                $this->host = $parts['host'];
+                $this->port = isset($parts['port']) ? (string) $parts['port'] : '3306';
+                $this->username = isset($parts['user']) ? urldecode($parts['user']) : '';
+                $this->password = isset($parts['pass']) ? urldecode($parts['pass']) : '';
+                $this->db_name = isset($parts['path']) ? ltrim($parts['path'], '/') : '';
+
+                if (!$this->db_name) {
+                    $this->db_name = getenv('MYSQLDATABASE') ?: 'word_tracker';
+                }
+                return;
+            }
+        }
+
+        $this->host = "127.0.0.1";
+        $this->db_name = "word_tracker";
+        $this->username = "root";
+        $this->password = "";
+        $this->port = "3306";
     }
 
     public function getConnection()
