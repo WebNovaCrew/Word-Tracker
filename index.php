@@ -9,16 +9,33 @@ require_once 'config/database.php';
 handleCors();
 
 // 2. Parse URL to determine API Endpoint
-// Request URI comes in like /api/login or /word-tracker/backend-php/api/login depending on host
 $request_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$pathParts = explode('/', trim($request_uri, '/'));
+$path = trim($request_uri, '/');
 
-// Universal Router
-// Routes requests from /word-tracker/endpoint.php to /backend-php/api/endpoint.php
-// OR /endpoint.php to api/endpoint.php if served from root
+// Handle root path - show API info
+if (empty($path) || $path === '') {
+    header('Content-Type: application/json');
+    http_response_code(200);
+    echo json_encode([
+        "status" => "success",
+        "message" => "Word Tracker API is running",
+        "version" => "1.0",
+        "endpoints" => [
+            "health" => "/api/ping.php",
+            "auth" => [
+                "login" => "/api/login.php",
+                "register" => "/api/register.php"
+            ],
+            "plans" => "/api/get_plans.php",
+            "database_init" => "/init_railway_db.php"
+        ]
+    ]);
+    exit;
+}
 
-$path = parse_url($request_uri, PHP_URL_PATH);
-$filename = basename($path); // e.g. login.php or login
+// Extract filename from path
+$pathParts = explode('/', $path);
+$filename = end($pathParts);
 
 // If no extension, assume .php
 if (strpos($filename, '.') === false) {
@@ -28,26 +45,28 @@ if (strpos($filename, '.') === false) {
 // Security: Prevent directory traversal
 $filename = basename($filename);
 
-$apiFile = __DIR__ . '/api/' . $filename;
-
-if (file_exists($apiFile)) {
-    require $apiFile;
-} else {
-    // Check if it's a known mapping
-    http_response_code(404);
-    echo json_encode([
-        "message" => "Endpoint not found: " . $filename,
-        "debug_path" => $apiFile
-    ]);
+// Check if it's a direct file in root (like init_railway_db.php)
+$rootFile = __DIR__ . '/' . $filename;
+if (file_exists($rootFile) && !is_dir($rootFile)) {
+    require $rootFile;
+    exit;
 }
 
-// 3. Fallback / 404
-// Since we are a Backend-Only API now, we do NOT serve frontend files or HTML.
-http_response_code(404);
+// Check API directory
+$apiFile = __DIR__ . '/api/' . $filename;
+if (file_exists($apiFile)) {
+    require $apiFile;
+    exit;
+}
+
+// 3. 404 - Endpoint not found
 header('Content-Type: application/json');
+http_response_code(404);
 echo json_encode([
-    "message" => "API Endpoint not found",
     "status" => "error",
-    "path" => $request_uri
+    "message" => "Endpoint not found",
+    "path" => $request_uri,
+    "requested_file" => $filename
 ]);
+exit;
 ?>
