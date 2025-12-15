@@ -1,0 +1,261 @@
+﻿
+app\components\api-tester\api-tester.component.t
+s:5:import { environment } from 
+'../../../environments/environment';
+app\components\api-tester\api-tester.component.t
+s:163:    apiUrl = 
+`${environment.apiUrl}/create_plan.php`;
+app\components\calendar-page\calendar-page.compo
+nent.ts:6:import { environment } from 
+'../../../environments/environment';
+app\components\calendar-page\calendar-page.compo
+nent.ts:63:      // Use environment.apiUrl
+app\components\calendar-page\calendar-page.compo
+nent.ts:64:      const url = `${environment.apiU
+rl}/get_plan_days.php?user_id=${userId}`;
+app\components\challenge-detail\challenge-detail
+.component.ts:5:import { environment } from 
+'../../../environments/environment';
+app\components\challenge-detail\challenge-detail
+.component.ts:48:        this.http.get<any>(`${e
+nvironment.apiUrl}/get_challenge_details.php?id=
+${id}&user_id=${this.currentUserId}`)
+app\components\challenge-detail\challenge-detail
+.component.ts:77:        this.http.post<any>(`${
+environment.apiUrl}/add_challenge_progress.php`,
+ payload)
+app\components\checklist-page\checklist-page.com
+ponent.ts:6:import { environment } from 
+'../../../environments/environment';
+app\components\checklist-page\checklist-page.com
+ponent.ts:68:        this.http.get<any>(`${envir
+onment.apiUrl}/get_plans.php?user_id=${localStor
+age.getItem('user_id')}`)
+app\components\checklist-page\checklist-page.com
+ponent.ts:77:        this.http.get<any>(`${envir
+onment.apiUrl}/get_tasks.php?plan_id=${this.plan
+Id}`)
+app\components\checklist-page\checklist-page.com
+ponent.ts:99:        this.http.post<any>(`${envi
+ronment.apiUrl}/save_task.php`, newTask)
+app\components\checklist-page\checklist-page.com
+ponent.ts:110:        this.http.post(`${environm
+ent.apiUrl}/delete_task.php`, { id: task.id })
+app\components\checklist-page\checklist-page.com
+ponent.ts:117:        this.http.post(`${environm
+ent.apiUrl}/save_task.php`, task)
+app\components\community\community.component.ts:
+6:import { environment } from 
+'../../../environments/environment';
+app\components\community\community.component.ts:
+34:    // Using environment.apiUrl instead of 
+hardcoded localhost
+app\components\community\community.component.ts:
+35:    const url = 
+`${environment.apiUrl}/get_community_plans.php`;
+app\components\create-checklist\create-checklist
+.component.ts:6:import { environment } from 
+'../../../environments/environment';
+app\components\create-checklist\create-checklist
+.component.ts:82:        this.http.post(`${envir
+onment.apiUrl}/create_checklist.php`, payload)
+app\components\create-plan\create-plan.component
+.ts:6:import { environment } from 
+'../../../environments/environment';
+app\components\create-plan\create-plan.component
+.ts:184:    this.http.post(`${environment.apiUrl
+}/create_plan.php`, payload)
+app\components\dashboard\dashboard.component.ts:
+5:import { environment } from 
+'../../../environments/environment';
+app\components\dashboard\dashboard.component.ts:
+28:    this.http.get<any>(`${environment.apiUrl}
+/get_plans.php?user_id=${userId}`)
+app\components\group-challenges\group-challenges
+.component.ts:6:import { environment } from 
+'../../../environments/environment';
+app\components\group-challenges\group-challenges
+.component.ts:51:    const url = `${environment.
+apiUrl}/get_challenges.php?user_id=${userId}&pag
+e=${this.currentPage}&limit=${this.itemsPerPage}
+`;
+app\components\group-challenges\group-challenges
+.component.ts:115:    this.http.post(`${environm
+ent.apiUrl}/join_challenge.php`, {
+app\components\group-challenges\group-challenges
+.component.ts:143:    this.http.post(`${environm
+ent.apiUrl}/join_challenge.php`, {
+app\components\group-challenges\group-challenges
+.component.ts:176:    this.http.post(`${environm
+ent.apiUrl}/create_challenge.php`, payload)
+app\components\login\login.component.ts:6:import
+ { environment } from 
+'../../../environments/environment';
+app\components\login\login.component.ts:36:     
+ const response = await 
+fetch(`${environment.apiUrl}/login.php`, {
+app\components\login\login.component.ts:63:     
+ this.errorMessage = 'Connection error. Please 
+check your internet connection and try again. 
+(' + environment.apiUrl + ')';
+app\components\my-checklists\my-checklists.compo
+nent.ts:5:import { environment } from 
+'../../../environments/environment';
+app\components\my-checklists\my-checklists.compo
+nent.ts:56:        const url = `${environment.ap
+iUrl}/get_checklists.php?user_id=${userId}&page=
+${this.currentPage}&limit=${this.itemsPerPage}`;
+app\components\my-checklists\my-checklists.compo
+nent.ts:110:        this.http.post(`${environmen
+t.apiUrl}/delete_checklist.php`, { id }) // 
+Assuming this endpoint exists or needs creation
+app\components\organize-plans\organize-plans.com
+ponent.ts:6:import { environment } from 
+'../../../environments/environment';
+app\components\organize-plans\organize-plans.com
+ponent.ts:46:    const url = `${environment.apiU
+rl}/get_projects.php?user_id=${userId}&page=${th
+is.currentPage}&limit=${this.itemsPerPage}`;
+app\components\organize-plans\organize-plans.com
+ponent.ts:104:    this.http.post(`${environment.
+apiUrl}/create_project.php`, payload)
+app\components\organize-plans\organize-plans.com
+ponent.ts:139:    this.http.post(`${environment.
+apiUrl}/update_project.php`, payload)
+app\components\organize-plans\organize-plans.com
+ponent.ts:178:    this.http.post(`${environment.
+apiUrl}/share_project.php`, {
+app\components\organize-plans\organize-plans.com
+ponent.ts:208:    this.http.post(`${environment.
+apiUrl}/delete_project.php`, { id: 
+this.selectedProject.id })
+app\components\organize-plans\organize-plans.com
+ponent.ts:226:      this.http.post(`${environmen
+t.apiUrl}/create_project.php`, { name, user_id: 
+userId })
+app\components\plan-detail\plan-detail.component
+.ts:6:import { environment } from 
+'../../../environments/environment';
+app\components\plan-detail\plan-detail.component
+.ts:33:    this.http.get<any>(`${environment.api
+Url}/get_plan_full_details.php?id=` + id)
+app\components\plan-detail\plan-detail.component
+.ts:53:    this.http.post(`${environment.apiUrl}
+/add_progress.php`, {
+app\components\plan-editor\plan-editor.component
+.ts:6:import { environment } from 
+'../../../environments/environment';
+app\components\plan-editor\plan-editor.component
+.ts:81:        this.http.get<any>(`${environment
+.apiUrl}/get_plan.php?id=${id}`)
+app\components\plan-editor\plan-editor.component
+.ts:143:            this.http.post(`${environmen
+t.apiUrl}/update_plan.php`, payload)
+app\components\plan-editor\plan-editor.component
+.ts:156:            this.http.post(`${environmen
+t.apiUrl}/create_plan.php`, payload)
+app\components\plan-editor\components\plan-edito
+r-calendar\plan-editor-calendar.component.ts:4:i
+mport { environment } from 
+'../../../../../environments/environment';
+app\components\plan-editor\components\plan-edito
+r-calendar\plan-editor-calendar.component.ts:65:
+        this.http.post(`${environment.apiUrl}/pr
+eview_plan.php`, payload)
+app\components\plan-editor\components\plan-edito
+r-progress\plan-editor-progress.component.ts:5:i
+mport { environment } from 
+'../../../../../environments/environment';
+app\components\plan-editor\components\plan-edito
+r-progress\plan-editor-progress.component.ts:33:
+        this.http.get(`${environment.apiUrl}/get
+_stats.php?plan_id=${this.planId}`)
+app\components\plan-editor\components\plan-edito
+r-progress\plan-editor-progress.component.ts:52:
+        this.http.post(`${environment.apiUrl}/ad
+d_progress.php`, {
+app\components\plan-list\plan-list.component.ts:
+7:import { environment } from 
+'../../../environments/environment';
+app\components\plan-list\plan-list.component.ts:
+64:        const url = `${environment.apiUrl}/ge
+t_plans.php?user_id=${userId}&page=${this.curren
+tPage}&limit=${this.pageSize}&is_archived=${isAr
+chived}`;
+app\components\plan-list\plan-list.component.ts:
+174:        this.http.post(`${environment.apiUrl
+}/update_plan_color.php`, {
+app\components\plan-list\plan-list.component.ts:
+239:        this.http.post(`${environment.apiUrl
+}/archive_plan.php`, { id: plan.id, archive: 
+true })
+app\components\plan-list\plan-list.component.ts:
+253:        this.http.post(`${environment.apiUrl
+}/archive_plan.php`, { id: plan.id, archive: 
+false })
+app\components\plan-list\plan-list.component.ts:
+267:        this.http.post(`${environment.apiUrl
+}/delete_plan.php`, { id: plan.id })
+app\components\profile\profile.component.ts:6:im
+port { environment } from 
+'../../../environments/environment';
+app\components\profile\profile.component.ts:62: 
+       this.http.get<any>(`${environment.apiUrl}
+/get_user.php?user_id=${userId}`)
+app\components\profile\profile.component.ts:90: 
+       this.http.get<any>(`${environment.apiUrl}
+/get_plans.php?user_id=${userId}`)
+app\components\profile\profile.component.ts:172:
+        this.http.post(`${environment.apiUrl}/up
+date_profile.php`, payload)
+app\components\register\register.component.ts:6:
+import { environment } from 
+'../../../environments/environment';
+app\components\register\register.component.ts:50
+:      const response = await 
+fetch(`${environment.apiUrl}/register.php`, {
+app\components\register\register.component.ts:77
+:      this.errorMessage = 'Connection error. 
+Please check your internet connection and try 
+again. (' + environment.apiUrl + ')';
+app\components\settings\settings.component.ts:6:
+import { environment } from 
+'../../../environments/environment';
+app\components\settings\settings.component.ts:80
+:            this.http.get<any>(`${environment.a
+piUrl}/get_user.php?user_id=${userId}`)
+app\components\settings\settings.component.ts:11
+6:            this.http.get<any[]>(`${environmen
+t.apiUrl}/get_plans.php?user_id=${userId}`)
+app\components\settings\settings.component.ts:19
+7:        this.http.post(`${environment.apiUrl}/
+change_password.php`, payload)
+app\components\sidebar\sidebar.component.ts:5:im
+port { environment } from 
+'../../../environments/environment';
+app\components\sidebar\sidebar.component.ts:50: 
+       this.http.get<any>(`${environment.apiUrl}
+/get_plans.php?user_id=${userId}`)
+app\components\sidebar\sidebar.component.ts:82: 
+       this.http.get<any>(`${environment.apiUrl}
+/get_challenges.php?user_id=${userId}`)
+app\components\sidebar\sidebar.component.ts:98: 
+       this.http.get<any>(`${environment.apiUrl}
+/get_projects.php?user_id=${userId}&limit=1`)
+app\components\stats\stats.component.ts:4:import
+ { environment } from 
+'../../../environments/environment';
+app\components\stats\stats.component.ts:57:     
+ url = `${environment.apiUrl}/get_stats.php?plan
+_id=${this.planId}`;
+app\components\stats\stats.component.ts:60:     
+ url = `${environment.apiUrl}/get_global_stats.p
+hp?user_id=${userId}`;
+environments\environment.development.ts:1:export
+ const environment = {
+environments\environment.prod.ts:1:export const 
+environment = {
+environments\environment.ts:1:export const 
+environment = {
+
+

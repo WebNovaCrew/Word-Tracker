@@ -436,6 +436,11 @@ select {
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
 }
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* You can add global styles to this file, and also import other style files */
 /* Touch-friendly inputs on mobile */
 @media (max-width: 768px) {
     .form-input {
