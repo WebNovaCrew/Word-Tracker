@@ -17,9 +17,9 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 // 2. Resolve Schema Path
 // Strategy: Check local (backend-php), then database folder (sibling), then project root
 $possiblePaths = [
-    __DIR__ . '/schema.sql',
-    __DIR__ . '/../database/schema.sql',
-    __DIR__ . '/../schema.sql'
+    __DIR__ . '/schema.sql',                    // /app/schema.sql
+    __DIR__ . '/../database/schema.sql',       // /database/schema.sql
+    __DIR__ . '/../schema.sql'                 // /schema.sql (project root)
 ];
 
 $schemaFile = null;
